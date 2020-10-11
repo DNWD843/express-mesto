@@ -1,6 +1,6 @@
 {
   "name": "mesto-express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "backend of project MESTO",
   "main": "app.js",
   "scripts": {
