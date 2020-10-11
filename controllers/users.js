@@ -21,7 +21,12 @@ const jsonUsersDataPath = path.join(__dirname, '..', 'data', 'users.json');
 const getUsers = (req, res) => {
   readFile(jsonUsersDataPath)
     .then((usersData) => res.send(usersData))
-    .catch((err) => res.send(err));
+    .catch((err) => {
+      if (err.code === 'ENOENT') {
+        return res.status(404).send({ message: 'Данные не найдены' });
+      }
+      return res.status(500).send({ message: 'Ошибка чтения данных' });
+    });
 };
 
 /**
@@ -46,7 +51,12 @@ const getUserById = (req, res) => {
       }
       return res.send(user);
     })
-    .catch((err) => res.send(err));
+    .catch((err) => {
+      if (err.code === 'ENOENT') {
+        return res.status(404).send({ message: 'Данные не найдены' });
+      }
+      return res.status(500).send({ message: 'Ошибка чтения данных' });
+    });
 };
 
 module.exports = {

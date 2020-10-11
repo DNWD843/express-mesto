@@ -20,8 +20,15 @@ const jsonCardsDataPath = path.join(__dirname, '..', 'data', 'cards.json');
  */
 const getCards = (req, res) => {
   readFile(jsonCardsDataPath)
-    .then((cardsData) => res.send(cardsData))
-    .catch((err) => res.send(err));
+    .then((cardsData) => {
+      res.send(cardsData);
+    })
+    .catch((err) => {
+      if (err.code === 'ENOENT') {
+        return res.status(404).send({ message: 'Данные не найдены' });
+      }
+      return res.status(500).send({ message: 'Ошибка чтения данных' });
+    });
 };
 
 module.exports = {
