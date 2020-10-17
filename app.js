@@ -1,8 +1,5 @@
 const express = require('express');
-const path = require('path');
-const usersRoutes = require('./routes/users.js');
-const cardsRouter = require('./routes/cards.js');
-const wrongRequestRouter = require('./routes/wrongRequest.js');
+const rootRouter = require('./routes/root');
 
 const { PORT = 3000 } = process.env;
 
@@ -13,9 +10,6 @@ const { PORT = 3000 } = process.env;
  */
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/users', usersRoutes);
-app.use('/cards', cardsRouter);
-app.use('*', wrongRequestRouter);
+app.use(rootRouter);
 
 app.listen(PORT);
