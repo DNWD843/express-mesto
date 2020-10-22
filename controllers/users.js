@@ -1,26 +1,25 @@
-const path = require('path');
-const readFile = require('../utils/read-file.js');
-
-const jsonUsersDataPath = path.join(__dirname, '..', 'data', 'users.json');
+const User = require('../models/user');
 
 /**
  * @module
- * @description Контроллер.<br>Получает данные пользователей
+ * @description Контроллеры модели user.<br>
+ * Обрабатывают запросы на получение списка пользователей, получение конкретного
+ *  пользователя по его _id, добавление нового пользователя.
  * @since v.1.0.0
- * @memberof controllers
  */
 
 /**
- * @description Миддлвэр, получает данные всех пользователей и отправляет их пользователю.
- * @param {object} req - объект запроса
- * @param {object} res - объект ответа
+ * @description Контроллер<br>Получает данные всех пользователей, в ответ
+ *  отправляет все полученные данные запрашивающему пользователю
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
  * @returns {JSON}
  * @since v.1.0.0
  * @public
  */
 const getUsers = (req, res) => {
-  readFile(jsonUsersDataPath)
-    .then((usersData) => res.send(usersData))
+  User.find({})
+    .then((users) => res.status(200).send(users))
     .catch((err) => {
       if (err.code === 'ENOENT') {
         return res.status(404).send({ message: 'Данные не найдены' });
@@ -30,36 +29,54 @@ const getUsers = (req, res) => {
 };
 
 /**
- * @description Миддлвэр, получает данные конкретного пользователя по его id
- *  и отправляет их пользователю.
- * @param {object} req - объект запроса
- * @param {object} res - объект ответа
+ * @description Контроллер<br>Получает данные конкретного пользователя по его _id,
+ *  в ответ отправляет полученные данные запрашивающему пользователю.
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @param {String} req.params.userId - _id искомого пользователя
  * @returns {JSON}
  * @since v.1.0.0
  * @public
  */
 const getUserById = (req, res) => {
-  const { id } = req.params;
-  readFile(jsonUsersDataPath)
-    .then((usersData) => {
-      const userById = usersData.find((user) => user._id === id);
-      return userById;
-    })
+  User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
       }
-      return res.send(user);
+      return res.status(200).send(user);
     })
     .catch((err) => {
       if (err.code === 'ENOENT') {
         return res.status(404).send({ message: 'Данные не найдены' });
       }
-      return res.status(500).send({ message: 'Ошибка чтения данных' });
+      return res.status(500).send({ message: 'Произошла ошибка' });
+    });
+};
+
+/**
+ * @description Контроллер<br>Создает нового пользователя по параметрам из запроса,
+ *  в ответ отправляет данные созданного пользователя
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @param {String} req.body.name - имя нового пользователя
+ * @param {String} req.body.about - информация о новом пользователе
+ * @param {String} req.body.avatar - ссылка на аватар нового пользователя
+ * @returns {JSON}
+ * @since v.1.1.0
+ * @public
+ */
+const createUser = (req, res) => {
+  const { name, about, avatar } = req.body;
+  User.create({ name, about, avatar })
+    .then((user) => res.status(200).send(user))
+    .catch(() => {
+      res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
 
 module.exports = {
   getUsers,
   getUserById,
+  createUser,
 };

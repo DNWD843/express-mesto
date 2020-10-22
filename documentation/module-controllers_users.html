@@ -38,7 +38,9 @@
     <div class="container-overview">
     
         
-            <div class="description">Контроллер.<br>Получает данные пользователей</div>
+            <div class="description">Контроллеры модели user.<br>
+Обрабатывают запросы на получение списка пользователей, получение конкретного
+ пользователя по его _id, добавление нового пользователя.</div>
         
 
         
@@ -90,7 +92,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line1">line 1</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -147,7 +149,7 @@
     
 
     
-    <h4 class="name" id="~getUserById"><span class="type-signature">(inner) </span>getUserById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    <h4 class="name" id="~createUser"><span class="type-signature">(inner) </span>createUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
     
@@ -155,8 +157,8 @@
 
 
 <div class="description">
-    Миддлвэр, получает данные конкретного пользователя по его id
- и отправляет их пользователю.
+    Контроллер<br>Создает нового пользователя по параметрам из запроса,
+ в ответ отправляет данные созданного пользователя
 </div>
 
 
@@ -198,7 +200,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -221,7 +223,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -232,6 +234,280 @@
             
 
             <td class="description last">объект ответа</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">имя нового пользователя</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.about</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">информация о новом пользователе</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.avatar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ссылка на аватар нового пользователя</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line69">line 69</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~getUserById"><span class="type-signature">(inner) </span>getUserById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Получает данные конкретного пользователя по его _id,
+ в ответ отправляет полученные данные запрашивающему пользователю.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.userId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">_id искомого пользователя</td>
         </tr>
 
     
@@ -275,7 +551,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line35">line 35</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -337,7 +613,8 @@
 
 
 <div class="description">
-    Миддлвэр, получает данные всех пользователей и отправляет их пользователю.
+    Контроллер<br>Получает данные всех пользователей, в ответ
+ отправляет все полученные данные запрашивающему пользователю
 </div>
 
 
@@ -379,7 +656,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -402,7 +679,7 @@
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">Object</span>
 
 
             
@@ -520,13 +797,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="cards.html">cards</a></li><li><a href="module-app.html">app</a></li><li><a href="module-controllers_cards.html">controllers/cards</a></li><li><a href="module-controllers_users.html">controllers/users</a></li><li><a href="users.html">users</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_cards.html">controllers/cards</a></li><li><a href="module-controllers_users.html">controllers/users</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Oct 11 2020 02:13:42 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 01:47:39 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

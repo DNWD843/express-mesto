@@ -34,7 +34,9 @@
     <div class="container-overview">
     
         
-            <div class="description">Контроллер.<br>Получает данные пользователей</div>
+            <div class="description">Контроллеры модели user.<br>
+Обрабатывают запросы на получение списка пользователей, получение конкретного
+ пользователя по его _id, добавление нового пользователя.</div>
         
 
         
@@ -72,7 +74,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line6">line 6</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -111,6 +113,189 @@
     
 
     
+    <h4 class="name" id="~createUser"><span class="type-signature">(inner) </span>createUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Создает нового пользователя по параметрам из запроса
+ {name, about, avatar}, где name - имя нового пользователя, about - информация о новом
+ пользователе, avatar - ссылка на аватар нового пользователя
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="~getUserById"><span class="type-signature">(inner) </span>getUserById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
@@ -119,8 +304,8 @@
 
 
 <div class="description">
-    Миддлвэр, получает данные конкретного пользователя по его id
- и отправляет их пользователю.
+    Контроллер<br>Получает данные конкретного пользователя по его _id
+ и отправляет их запрашивающему пользователю.
 </div>
 
 
@@ -301,7 +486,8 @@
 
 
 <div class="description">
-    Миддлвэр, получает данные всех пользователей и отправляет их пользователю.
+    Контроллер<br>Получает данные всех пользователей и отправляет их запрашивающему
+ пользователю
 </div>
 
 
@@ -484,13 +670,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="controllers.module_controllers_cards.html">controllers/cards</a></li><li><a href="controllers.module_controllers_users.html">controllers/users</a></li><li><a href="module-app.html">app</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="controllers.module_controllers_cards.html">controllers/cards</a></li><li><a href="controllers.module_controllers_users.html">controllers/users</a></li><li><a href="module-app.html">app</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Oct 18 2020 02:17:23 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 01:25:31 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

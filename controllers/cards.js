@@ -7,7 +7,6 @@ const jsonCardsDataPath = path.join(__dirname, '..', 'data', 'cards.json');
  * @module
  * @description Контроллер.<br>Получает данные карточек
  * @since v.1.0.0
- * @memberof controllers
  */
 
 /**

@@ -26,29 +26,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const path = require('path');
-const readFile = require('../utils/read-file.js');
-
-const jsonUsersDataPath = path.join(__dirname, '..', 'data', 'users.json');
+            <pre class="prettyprint source linenums"><code>const User = require('../models/user');
 
 /**
  * @module
- * @description Контроллер.&lt;br>Получает данные пользователей
+ * @description Контроллеры модели user.&lt;br>
+ * Обрабатывают запросы на получение списка пользователей, получение конкретного
+ *  пользователя по его _id, добавление нового пользователя.
  * @since v.1.0.0
- * @memberof controllers
  */
 
 /**
- * @description Миддлвэр, получает данные всех пользователей и отправляет их пользователю.
- * @param {object} req - объект запроса
- * @param {object} res - объект ответа
+ * @description Контроллер&lt;br>Получает данные всех пользователей, в ответ
+ *  отправляет все полученные данные запрашивающему пользователю
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
  * @returns {JSON}
  * @since v.1.0.0
  * @public
  */
 const getUsers = (req, res) => {
-  readFile(jsonUsersDataPath)
-    .then((usersData) => res.send(usersData))
+  User.find({})
+    .then((users) => res.status(200).send(users))
     .catch((err) => {
       if (err.code === 'ENOENT') {
         return res.status(404).send({ message: 'Данные не найдены' });
@@ -58,38 +57,56 @@ const getUsers = (req, res) => {
 };
 
 /**
- * @description Миддлвэр, получает данные конкретного пользователя по его id
- *  и отправляет их пользователю.
- * @param {object} req - объект запроса
- * @param {object} res - объект ответа
+ * @description Контроллер&lt;br>Получает данные конкретного пользователя по его _id,
+ *  в ответ отправляет полученные данные запрашивающему пользователю.
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @param {String} req.params.userId - _id искомого пользователя
  * @returns {JSON}
  * @since v.1.0.0
  * @public
  */
 const getUserById = (req, res) => {
-  const { id } = req.params;
-  readFile(jsonUsersDataPath)
-    .then((usersData) => {
-      const userById = usersData.find((user) => user._id === id);
-      return userById;
-    })
+  User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
         return res.status(404).send({ message: 'Нет пользователя с таким id' });
       }
-      return res.send(user);
+      return res.status(200).send(user);
     })
     .catch((err) => {
       if (err.code === 'ENOENT') {
         return res.status(404).send({ message: 'Данные не найдены' });
       }
-      return res.status(500).send({ message: 'Ошибка чтения данных' });
+      return res.status(500).send({ message: 'Произошла ошибка' });
+    });
+};
+
+/**
+ * @description Контроллер&lt;br>Создает нового пользователя по параметрам из запроса,
+ *  в ответ отправляет данные созданного пользователя
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @param {String} req.body.name - имя нового пользователя
+ * @param {String} req.body.about - информация о новом пользователе
+ * @param {String} req.body.avatar - ссылка на аватар нового пользователя
+ * @returns {JSON}
+ * @since v.1.1.0
+ * @public
+ */
+const createUser = (req, res) => {
+  const { name, about, avatar } = req.body;
+  User.create({ name, about, avatar })
+    .then((user) => res.status(200).send(user))
+    .catch(() => {
+      res.status(500).send({ message: 'Произошла ошибка' });
     });
 };
 
 module.exports = {
   getUsers,
   getUserById,
+  createUser,
 };
 </code></pre>
         </article>
@@ -101,13 +118,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="controllers.module_controllers_cards.html">controllers/cards</a></li><li><a href="controllers.module_controllers_users.html">controllers/users</a></li><li><a href="module-app.html">app</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_cards.html">controllers/cards</a></li><li><a href="module-controllers_users.html">controllers/users</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Oct 18 2020 02:17:23 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 01:47:39 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

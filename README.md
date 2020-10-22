@@ -1,7 +1,7 @@
 # Проект Mesto фронтенд + бэкенд
 
 License: Yandex.Praktikum<br>
-Version: 1.0.2<br>
+Version: 1.1.0<br>
 Author: Dmitry Neklyudov<br>
 
 **Описание**<br>
