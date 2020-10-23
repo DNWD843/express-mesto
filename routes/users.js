@@ -1,11 +1,10 @@
 /**
  * @module
  * @description Роутер users. Обрабатывает запросы:<br>
- *  - GET /users<br>
- *  - GET /users/id<br>
- *  - POST /users
+ *  - GET /users - возвращает данных всех пользователей<br>
+ *  - GET /users/id - возвращает данные конкретного пользователя по его _id<br>
+ *  - POST /users - добавляет нового пользователя
  * @since v.1.0.0
- * @memberof routes
  */
 
 const router = require('express').Router();

@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "jsdoc:build": "jsdoc ./app.js ./controllers ./routes ./utils ./models ./README.md -d ./documentation"
+    "jsdoc:build": "jsdoc ./app.js ./controllers ./routes ./models ./README.md -d ./documentation"
   },
   "repository": {
     "type": "git",

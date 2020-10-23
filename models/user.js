@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 /**
  * @module
- * @description Схема пользователя<br>
+ * @description Схема пользователя - user<br>
  * @param {Object} name - поле name - имя пользователя
  * @param {String} name.type - тип данных - строка
  * @param {Number} name.minlength - минимальная длина имени

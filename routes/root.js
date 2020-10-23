@@ -1,20 +1,16 @@
 /**
  * @module
- * @description Корневой роутер. Обрабатывает все пути запросов
+ * @description Корневой роутер. Обрабатывает пути из всех запросов
  * @since v.1.0.2
- * @memberof routes
  */
 
-const express = require('express');
 const router = require('express').Router();
-const path = require('path');
 const usersRoutes = require('./users.js');
-const cardsRouter = require('./cards.js');
-const wrongRequestRouter = require('./wrongRequest.js');
+const cardsRoutes = require('./cards.js');
+const badRequestRouter = require('./badRequest.js');
 
-router.use(express.static(path.join(__dirname, '..', '/public')));
 router.use('/users', usersRoutes);
-router.use('/cards', cardsRouter);
-router.use('*', wrongRequestRouter);
+router.use('/cards', cardsRoutes);
+router.use('*', badRequestRouter);
 
 module.exports = router;

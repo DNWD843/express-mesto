@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: models/user</title>
+    <title>JSDoc: Module: models/card</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: models/user</h1>
+    <h1 class="page-title">Module: models/card</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Схема пользователя - user<br></div>
+            <div class="description">Схема карточки - card<br></div>
         
 
         
@@ -95,7 +95,7 @@
 
             
 
-            <td class="description last">поле name - имя пользователя
+            <td class="description last">поле name - название карточки
                 <h6>Properties</h6>
                 
 
@@ -160,7 +160,7 @@
 
             
 
-            <td class="description last">минимальная длина имени</td>
+            <td class="description last">минимальная длина названия</td>
         </tr>
 
     
@@ -183,7 +183,7 @@
 
             
 
-            <td class="description last">максимальная длина имени</td>
+            <td class="description last">максимальная длина названия</td>
         </tr>
 
     
@@ -222,7 +222,7 @@
 
         <tr>
             
-                <td class="name"><code>about</code></td>
+                <td class="name"><code>link</code></td>
             
 
             <td class="type">
@@ -238,150 +238,7 @@
 
             
 
-            <td class="description last">поле about - информация о пользователе
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>type</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">тип данных - строка</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>minlength</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">минимальная длина описания</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>maxlength</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">максимальная длина описания</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>required</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">определяет, является ли поле обязательным<br>
- - true - поле обязательное<br>
- - false - поле не обязательное</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>avatar</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">поле avatar -  ссылка на аватар пользователя
+            <td class="description last">поле link -  ссылка на изображение карточки
                 <h6>Properties</h6>
                 
 
@@ -483,6 +340,317 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>owner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">поле owner - информация о создателе карточки
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ObjectId</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">тип данных - ObjectId ползователя, создавшего карточку</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ref</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ссылка на схему пользователя user</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>required</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">определяет, является ли поле обязательным<br>
+ - true - поле обязательное<br>
+ - false - поле не обязательное</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>likes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">поле likes - информация о лайках
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ObjectId</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">тип данных - ObjectId</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>default</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">значение по умолчанию - пустой массив</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>createdAt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">поле createdAt - информация о дате создания карточки
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">тип данных - дата</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>default</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">значение по умолчанию - текущая дата и время,
+ устанавливаются вызовом метода Date.now</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -523,7 +691,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="models_user.js.html">models/user.js</a>, <a href="models_user.js.html#line3">line 3</a>
+        <a href="models_card.js.html">models/card.js</a>, <a href="models_card.js.html#line3">line 3</a>
     </li></ul></dd>
     
 

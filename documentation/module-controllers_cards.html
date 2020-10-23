@@ -38,7 +38,8 @@
     <div class="container-overview">
     
         
-            <div class="description">Контроллер.<br>Получает данные карточек</div>
+            <div class="description">Контроллеры модели card.<br>Обрабатывают запросы на получение всех карточек,
+ добавление новой карточки, удаление карточки по ее идентификатору</div>
         
 
         
@@ -90,7 +91,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line6">line 6</a>
+        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -147,6 +148,440 @@
     
 
     
+    <h4 class="name" id="~createCard"><span class="type-signature">(inner) </span>createCard<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Создаёт новую карточку и возвращает её пользователю.<br>
+Принимает параметры из тела запроса: { name, link }
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">название карточки</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.body.link</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ссылка на изображение карточки</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="~deleteCard"><span class="type-signature">(inner) </span>deleteCard<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Удаляет карточку по её идентификатору, возвращает сообщение об
+ успешном удалении и удаленную карточку.<br>
+Принимает _id удаляемой карточки из параметров запроса
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.params.cardId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">_id удаляемой карточки, передается в параметрах запроса</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line63">line 63</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="~getCards"><span class="type-signature">(inner) </span>getCards<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
@@ -155,7 +590,7 @@
 
 
 <div class="description">
-    Миддлвэр, получает данные карточек и отправляет их пользователю.
+    Контроллер<br>Получает данные всех карточек и отправляет их пользователю.
 </div>
 
 
@@ -274,7 +709,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line20">line 20</a>
+        <a href="controllers_cards.js.html">controllers/cards.js</a>, <a href="controllers_cards.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -338,13 +773,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_cards.html">controllers/cards</a></li><li><a href="module-controllers_users.html">controllers/users</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-routes_wrongRequest.html">routes/wrongRequest</a></li><li><a href="module-utils_read-file.html">utils/read-file</a></li><li><a href="routes.module_routes_cards.html">routes/cards</a></li><li><a href="routes.module_routes_root.html">routes/root</a></li><li><a href="routes.module_routes_users.html">routes/users</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app.html">app</a></li><li><a href="module-controllers_cards.html">controllers/cards</a></li><li><a href="module-controllers_users.html">controllers/users</a></li><li><a href="module-models_card.html">models/card</a></li><li><a href="module-models_user.html">models/user</a></li><li><a href="module-routes_badRequest.html">routes/badRequest</a></li><li><a href="module-routes_cards.html">routes/cards</a></li><li><a href="module-routes_root.html">routes/root</a></li><li><a href="module-routes_users.html">routes/users</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 01:47:39 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 05:19:25 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>
