@@ -38,9 +38,12 @@
     <div class="container-overview">
     
         
-            <div class="description">Контроллеры модели user.<br>
-Обрабатывают запросы на получение списка пользователей, получение конкретного
- пользователя по его _id, добавление нового пользователя.</div>
+            <div class="description">Контроллеры модели user.<br>Обрабатывают запросы:<br>
+ - GET /users - возвращает данных всех пользователей<br>
+ - GET /users/id - возвращает данные конкретного пользователя по его _id<br>
+ - POST /users - добавляет нового пользователя<br>
+ - PATCH /users/me — обновляет профиль<br>
+ - PATCH /users/me/avatar — обновляет аватар</div>
         
 
         
@@ -149,7 +152,7 @@
     
 
     
-    <h4 class="name" id="~createUser"><span class="type-signature">(inner) </span>createUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    <h4 class="name" id="createUser"><span class="type-signature"></span>createUser<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
     
@@ -237,6 +240,37 @@
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
@@ -256,7 +290,7 @@
 
             
 
-            <td class="description last">имя нового пользователя</td>
+            <td class="description last">имя нового пользователя из тела запроса</td>
         </tr>
 
     
@@ -279,7 +313,7 @@
 
             
 
-            <td class="description last">информация о новом пользователе</td>
+            <td class="description last">информация о новом пользователе из тела запроса</td>
         </tr>
 
     
@@ -302,6 +336,141 @@
 
             
 
+            <td class="description last">ссылка на аватар нового пользователя из тела запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>User.create</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">метод модели User, создает нового пользователя. Возвращает
+ данные нового пользователя. Принимает аргументом объект с данными для создания нового
+ пользователя.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newUserData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект с данными для создания нового пользователя
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">имя нового пользователя</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>about</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">информация о новом пользователе</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>avatar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
             <td class="description last">ссылка на аватар нового пользователя</td>
         </tr>
 
@@ -309,7 +478,12 @@
     </tbody>
 </table>
 
+            </td>
+        </tr>
 
+    
+    </tbody>
+</table>
 
 
 
@@ -346,7 +520,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line70">line 70</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line83">line 83</a>
     </li></ul></dd>
     
 
@@ -400,7 +574,934 @@
     
 
     
-    <h4 class="name" id="~getUserById"><span class="type-signature">(inner) </span>getUserById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    <h4 class="name" id="editUserAvatar"><span class="type-signature"></span>editUserAvatar<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Обновляет данные пользователя, возвращает обновленные данные.<br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Card.findByIdAndUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">метод модели User. Находит данные пользователя по его
+ идентификатору и обновляет их. Возвращает обновленные данные. Принимает аргументами:<br>
+ - _id пользователя из параметров запроса<br>
+ - объект со свойствами, которые нужно обновить<br>
+ - объект опций</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.user._id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">_id пользователя, <b>временно захардкорен в параметрах
+ запроса<b></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>properties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект со свойствами, которые нужно обновить
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>avatar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ссылка на аватар пользователя</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект опций метода Card.findByIdAndUpdate
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>new</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если true, метод возвращает обновленные данные.
+ По умолчанию false.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>runValidators</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если true, данные будут валидированы перед
+ изменением. По умолчанию false.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>upsert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если пользователь не найден, он будет создан.
+ По умолчанию false.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line167">line 167</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="editUserProfile"><span class="type-signature"></span>editUserProfile<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Контроллер<br>Обновляет данные пользователя, возвращает обновленные данные.<br>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>req</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект запроса</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект ответа</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Card.findByIdAndUpdate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">метод модели User. Находит данные пользователя по его
+ идентификатору и обновляет их. Возвращает обновленные данные. Принимает аргументами:<br>
+ - _id пользователя из параметров запроса<br>
+ - объект со свойствами, которые нужно обновить<br>
+ - объект опций</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>req.user._id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">_id пользователя, <b>временно захардкорен в параметрах
+ запроса<b></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>properties</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект со свойствами, которые нужно обновить
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">имя пользователя</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>about</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">информация о пользователе</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">объект опций метода Card.findByIdAndUpdate
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>new</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если true, метод возвращает обновленные данные.
+ По умолчанию false.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>runValidators</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если true, данные будут валидированы перед
+ изменением. По умолчанию false.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>upsert</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Parameters</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">если пользователь не найден, он будет создан.
+ По умолчанию false.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+    <dt class="tag-since">Since:</dt>
+    <dd class="tag-since"><ul class="dummy"><li>v.1.1.0</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">JSON</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getUserById"><span class="type-signature"></span>getUserById<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
     
@@ -489,6 +1590,61 @@
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>User.findById</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">метод модели User. Находит и возвращает данные пользователя
+ по его идентификатору. Принимает аргументов идентификатор пользователя.</td>
+        </tr>
+
+    
 
         <tr>
             
@@ -508,14 +1664,13 @@
 
             
 
-            <td class="description last">_id искомого пользователя</td>
+            <td class="description last">_id искомого пользователя, принимается из параметров
+ запроса</td>
         </tr>
 
     
     </tbody>
 </table>
-
-
 
 
 
@@ -552,7 +1707,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line42">line 42</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line47">line 47</a>
     </li></ul></dd>
     
 
@@ -606,7 +1761,7 @@
     
 
     
-    <h4 class="name" id="~getUsers"><span class="type-signature">(inner) </span>getUsers<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
+    <h4 class="name" id="getUsers"><span class="type-signature"></span>getUsers<span class="signature">(req, res)</span><span class="type-signature"> &rarr; {JSON}</span></h4>
     
 
     
@@ -702,6 +1857,59 @@
 
 
 
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Card.find</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Method</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">метод модели Card, ищет все карточки и возвращает их
+ пользователю</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
 <dl class="details">
 
     
@@ -734,7 +1942,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line20">line 20</a>
+        <a href="controllers_users.js.html">controllers/users.js</a>, <a href="controllers_users.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -804,7 +2012,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Fri Oct 23 2020 05:19:25 GMT+0300 (GMT+03:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Oct 25 2020 17:52:22 GMT+0300 (GMT+03:00)
 </footer>
 
 <script> prettyPrint(); </script>

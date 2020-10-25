@@ -41,9 +41,13 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    /* validate: {
-      validator(v) { },
-    }, */
+    validate: {
+      validator(v) {
+        // eslint-disable-next-line
+        const regex = /^https?:\/\/[\w\-\.\/~\?%=&\$]+#?$/;
+        return regex.test(v);
+      },
+    },
     required: true,
   },
   owner: {
@@ -51,10 +55,10 @@ const cardSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  likes: [{
-    type: mongoose.Schema.Types.ObjectId,
+  likes: {
+    type: Array,
     default: [],
-  }],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

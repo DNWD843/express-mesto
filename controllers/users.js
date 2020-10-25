@@ -2,9 +2,12 @@ const User = require('../models/user');
 
 /**
  * @module
- * @description Контроллеры модели user.<br>
- * Обрабатывают запросы на получение списка пользователей, получение конкретного
- *  пользователя по его _id, добавление нового пользователя.
+ * @description Контроллеры модели user.<br>Обрабатывают запросы:<br>
+ *  - GET /users - возвращает данных всех пользователей<br>
+ *  - GET /users/id - возвращает данные конкретного пользователя по его _id<br>
+ *  - POST /users - добавляет нового пользователя<br>
+ *  - PATCH /users/me — обновляет профиль<br>
+ *  - PATCH /users/me/avatar — обновляет аватар
  * @since v.1.0.0
  */
 
@@ -13,19 +16,17 @@ const User = require('../models/user');
  *  отправляет все полученные данные запрашивающему пользователю
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
+ * @property {Method} Card.find - метод модели Card, ищет все карточки и возвращает их
+ *  пользователю
  * @returns {JSON}
  * @since v.1.0.0
+ * @instance
  * @public
  */
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.status(200).send(users))
-    .catch((err) => {
-      if (err.code === 'ENOENT') {
-        return res.status(404).send({ message: 'Данные не найдены' });
-      }
-      return res.status(500).send({ message: 'Ошибка чтения данных' });
-    });
+    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
 };
 
 /**
@@ -34,9 +35,13 @@ const getUsers = (req, res) => {
  * Принимает идентификатор _id в параметрах запроса.
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
- * @param {String} req.params.userId - _id искомого пользователя
+ * @property {Method} User.findById - метод модели User. Находит и возвращает данные пользователя
+ *  по его идентификатору. Принимает аргументов идентификатор пользователя.
+ * @property {String} req.params.userId - _id искомого пользователя, принимается из параметров
+ *  запроса
  * @returns {JSON}
  * @since v.1.0.0
+ * @instance
  * @public
  */
 const getUserById = (req, res) => {
@@ -48,10 +53,10 @@ const getUserById = (req, res) => {
       return res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.code === 'ENOENT') {
-        return res.status(404).send({ message: 'Данные не найдены' });
+      if (err.name === 'CastError') {
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
       }
-      return res.status(500).send({ message: 'Произошла ошибка' });
+      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
     });
 };
 
@@ -60,19 +65,123 @@ const getUserById = (req, res) => {
  *  пользователя<br>Принимает параметры из тела запроса: { name, about, avatar }
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
- * @param {String} req.body.name - имя нового пользователя
- * @param {String} req.body.about - информация о новом пользователе
- * @param {String} req.body.avatar - ссылка на аватар нового пользователя
+ * @property {String} req.body.name - имя нового пользователя из тела запроса
+ * @property {String} req.body.about - информация о новом пользователе из тела запроса
+ * @property {String} req.body.avatar - ссылка на аватар нового пользователя из тела запроса
+ * @property {Method} User.create - метод модели User, создает нового пользователя. Возвращает
+ *  данные нового пользователя. Принимает аргументом объект с данными для создания нового
+ *  пользователя.
+ * @property {Object} newUserData - объект с данными для создания нового пользователя
+ * @property {String} newUserData.name - имя нового пользователя
+ * @property {String} newUserData.about - информация о новом пользователе
+ * @property {String} newUserData.avatar - ссылка на аватар нового пользователя
  * @returns {JSON}
  * @since v.1.1.0
+ * @instance
  * @public
  */
 const createUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then((user) => res.status(200).send(user))
-    .catch(() => {
-      res.status(500).send({ message: 'Произошла ошибка' });
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
+      }
+      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+    });
+};
+
+/**
+ * @description Контроллер<br>Обновляет данные пользователя, возвращает обновленные данные.<br>
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @property {Method} Card.findByIdAndUpdate - метод модели User. Находит данные пользователя по его
+ *  идентификатору и обновляет их. Возвращает обновленные данные. Принимает аргументами:<br>
+ *  - _id пользователя из параметров запроса<br>
+ *  - объект со свойствами, которые нужно обновить<br>
+ *  - объект опций
+ * @property {String} req.user._id - _id пользователя, <b>временно захардкорен в параметрах
+ *  запроса<b>
+ * @property {Object} properties - объект со свойствами, которые нужно обновить
+ * @property {String} properties.name - имя пользователя
+ * @property {String} properties.about - информация о пользователе
+ * @property {Object} options - объект опций метода Card.findByIdAndUpdate
+ * @property {Parameters} options.new - если true, метод возвращает обновленные данные.
+ *  По умолчанию false.
+ * @property {Parameters} options.runValidators - если true, данные будут валидированы перед
+ *  изменением. По умолчанию false.
+ * @property {Parameters} options.upsert - если пользователь не найден, он будет создан.
+ *  По умолчанию false.
+ * @returns {JSON}
+ * @since v.1.1.0
+ * @instance
+ * @public
+ */
+const editUserProfile = (req, res) => {
+  const { name, about } = req.body;
+  User.findByIdAndUpdate(
+    // req.user._id - временное решение авторизции.
+    req.user._id,
+    { name, about },
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    },
+  )
+    .then((user) => res.status(200).send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
+      }
+      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+    });
+};
+
+/**
+ * @description Контроллер<br>Обновляет данные пользователя, возвращает обновленные данные.<br>
+ * @param {Object} req - объект запроса
+ * @param {Object} res - объект ответа
+ * @property {Method} Card.findByIdAndUpdate - метод модели User. Находит данные пользователя по его
+ *  идентификатору и обновляет их. Возвращает обновленные данные. Принимает аргументами:<br>
+ *  - _id пользователя из параметров запроса<br>
+ *  - объект со свойствами, которые нужно обновить<br>
+ *  - объект опций
+ * @property {String} req.user._id - _id пользователя, <b>временно захардкорен в параметрах
+ *  запроса<b>
+ * @property {Object} properties - объект со свойствами, которые нужно обновить
+ * @property {String} properties.avatar - ссылка на аватар пользователя
+ * @property {Object} options - объект опций метода Card.findByIdAndUpdate
+ * @property {Parameters} options.new - если true, метод возвращает обновленные данные.
+ *  По умолчанию false.
+ * @property {Parameters} options.runValidators - если true, данные будут валидированы перед
+ *  изменением. По умолчанию false.
+ * @property {Parameters} options.upsert - если пользователь не найден, он будет создан.
+ *  По умолчанию false.
+ * @returns {JSON}
+ * @since v.1.1.0
+ * @instance
+ * @public
+ */
+const editUserAvatar = (req, res) => {
+  const { avatar } = req.body;
+  User.findByIdAndUpdate(
+    // req.user._id - временное решение авторизции.
+    req.user._id,
+    { avatar },
+    {
+      new: true,
+      runValidators: true,
+      upsert: true,
+    },
+  )
+    .then((user) => res.status(200).send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return res.status(400).send({ message: 'Переданы некорректные данные' });
+      }
+      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
     });
 };
 
@@ -80,4 +189,6 @@ module.exports = {
   getUsers,
   getUserById,
   createUser,
+  editUserProfile,
+  editUserAvatar,
 };

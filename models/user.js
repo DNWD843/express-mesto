@@ -41,11 +41,13 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    /* validate: {
+    validate: {
       validator(v) {
-
-      }
-    }, */
+        // eslint-disable-next-line
+        const regex = /^https?:\/\/[\w\-\.\/~\?%=&\$]+#?$/;
+        return regex.test(v);
+      },
+    },
     required: true,
   },
 });
