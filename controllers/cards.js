@@ -2,7 +2,8 @@ const Card = require('../models/card');
 
 /**
  * @module
- * @description Контроллеры модели card.<br>Обрабатывают запросы:<br>
+ * @description Контроллеры модели card.<br>
+ * Обрабатывают запросы:<br>
  *  - GET /cards - возвращает все карточки<br>
  *  - POST /cards - создаёт новую карточку<br>
  *  - DELETE /cards/:cardId - удаляет карточку по идентификатору<br>
@@ -12,7 +13,9 @@ const Card = require('../models/card');
  */
 
 /**
- * @description Контроллер<br>Получает данные всех карточек и отправляет их пользователю.
+ * @description Контроллер<br>
+ * Получает данные всех карточек и отправляет их пользователю.<br>
+ * Обрабатываeт запрос GET /cards
  * @param {object} req - объект запроса
  * @param {object} res - объект ответа
  * @property {Method} Card.find - метод модели Card, ищет все карточки и возвращает их
@@ -29,7 +32,9 @@ const getCards = (req, res) => {
 };
 
 /**
- * @description Контроллер<br>Создаёт новую карточку и возвращает её пользователю.<br>
+ * @description Контроллер<br>
+ * Создаёт новую карточку и возвращает её пользователю.<br>
+ * Обрабатываeт запрос POST /cards
  * @param {object} req - объект запроса
  * @param {object} res - объект ответа
  * @property {String} req.body.name - название карточки из запроса
@@ -59,8 +64,9 @@ const createCard = (req, res) => {
 };
 
 /**
- * @description Контроллер<br>Удаляет карточку по её идентификатору, возвращает сообщение об
- *  успешном удалении и удаленную карточку.<br>
+ * @description Контроллер<br>
+ * Удаляет карточку по её идентификатору, возвращает сообщение об успешном удалении
+ *  и удаленную карточку.<br> Обрабатываeт запрос DELETE /cards/:cardId
  * @param {object} req - объект запроса
  * @param {object} res - объект ответа
  * @property {Method} Card.findByIdAndRemove - метод модели Card. Находит карточку по её
@@ -88,8 +94,9 @@ const deleteCard = (req, res) => {
 };
 
 /**
- * @description Контроллер<br>Добавляет "лайк" карточке, возвращает карточку с обновленным
- *  массивом "лайков".<br>
+ * @description Контроллер<br>
+ * Добавляет "лайк" карточке, возвращает карточку с обновленным  массивом "лайков".<br>
+ * Обрабатываeт запрос PUT /cards/:cardId/likes
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
  * @property {Method} Card.findByIdAndUpdate - метод модели Card. Находит карточку по её
@@ -135,8 +142,9 @@ const likeCard = (req, res) => {
 
 /**
  *
- * @description Контроллер<br>Удаляет "лайк" у карточки, возвращает карточку с обновленным
- *  массивом "лайков".<br>
+ * @description Контроллер<br>
+ * Удаляет "лайк" у карточки, возвращает карточку с обновленным массивом "лайков".<br>
+ * Обрабатываeт запрос DELETE /cards/:cardId/likes
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
  * @property {Method} Card.findByIdAndUpdate - метод модели Card. Находит карточку по её

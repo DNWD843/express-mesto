@@ -23,8 +23,8 @@ const mongoose = require('mongoose');
  * @param {Boolean}owner.required - определяет, является ли поле обязательным<br>
  *  - true - поле обязательное<br>
  *  - false - поле не обязательное
- * @param {Object} likes - поле likes - информация о лайках
- * @param {ObjectId} likes.type - тип данных - ObjectId
+ * @param {Array} likes - поле likes - информация о лайках, массив ObjectId
+ * @param {ObjectId} likes.type - тип данных элементов массива "лайков"
  * @param {Array} likes.default - значение по умолчанию - пустой массив
  * @param {Object} createdAt - поле createdAt - информация о дате создания карточки
  * @param {Date} createdAt.type - тип данных - дата
@@ -44,7 +44,7 @@ const cardSchema = new mongoose.Schema({
     validate: {
       validator(v) {
         // eslint-disable-next-line
-        const regex = /^https?:\/\/[\w\-\.\/~\?%=&\$]+#?$/;
+        const regex = /^https?:\/\/(www\.)?[\w\-\.]+\.[a-z]{2,3}\b[\w\/\-\?=\&\$\%]*(\.[a-z]{3})?#?$/;
         return regex.test(v);
       },
     },
@@ -55,10 +55,11 @@ const cardSchema = new mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  likes: {
-    type: Array,
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     default: [],
-  },
+  }],
   createdAt: {
     type: Date,
     default: Date.now,

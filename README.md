@@ -15,7 +15,8 @@ Author: Dmitry Neklyudov<br>
 
 **Запуск проекта**<br>
 `npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+`npm run dev` — запускает сервер с hot-reload     
+`npm run jsdoc:build` - формирует документацию и собирает ее в папке documentation     
  
 **Описание версий проекта**<br>
 ***Версия 1.1.0***<br>

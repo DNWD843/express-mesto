@@ -22,6 +22,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   req.user = {
     _id: '5f9464fa58695029a0324dcc',
+    /* Юзеры для проверки лайков:
+    5f94813a32cd6e52c8d1c065
+    5f958f119d837851d8e46853
+    5f9464fa58695029a0324dcc default user */
   };
   next();
 });
@@ -35,4 +39,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use(rootRouter);
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
