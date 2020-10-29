@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/DNWD843/express-mesto#readme",
   "devDependencies": {
-    "eslint": "^7.10.0",
+    "eslint": "^7.12.1",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.1",
     "jsdoc": "^3.6.6",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "editorconfig": "^0.15.3",
     "express": "^4.17.1",
     "mongoose": "^5.10.9"
   }
