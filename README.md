@@ -1,7 +1,7 @@
 # Проект Mesto фронтенд + бэкенд
 
 License: Yandex.Praktikum<br>
-Version: 1.1.1<br>
+Version: 1.2.0<br>
 Author: Dmitry Neklyudov<br>
 
 **Описание**<br>
@@ -11,14 +11,23 @@ Author: Dmitry Neklyudov<br>
 - Node.js;
 - Express.js;
 - MongoDB, mongoose, Compass;
+- Docker;
 - JSDoc3.
 
 **Запуск проекта**<br>
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload     
-`npm run jsdoc:build` - формирует документацию и собирает ее в папке documentation     
+1. `docker-compose up mongodb-container` (for Linux: `sudo docker-compose up mongodb-container`) -    
+запускает базу данных MongoDB из Docker    
+2. `npm run start` — запускает сервер    
+  или     
+   `npm run dev` — запускает сервер с hot-reload     
+3. `docker-compose down mongodb-container` (for Linux: `sudo docker-compose down mongodb-container`) -     
+останавливает базу данных MongoDB из Docker    
+***Опционально:*** `npm run jsdoc:build` - формирует документацию и собирает ее в папке documentation     
  
 **Описание версий проекта**<br>
+***Версия 1.2.0***    
+MongoDB запускается из контейнера Docker.    
+
 ***Версия 1.1.1***        
 Исправлены замечания ревью        
 

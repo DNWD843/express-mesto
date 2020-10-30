@@ -30,15 +30,17 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(rootRouter);
+
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
-});
-
-app.use(rootRouter);
-
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+}).then(() => {
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+  });
+}).catch((err) => {
+  console.error(`Can't start app ${err.toString()}`);
 });
