@@ -15,29 +15,12 @@ Author: Dmitry Neklyudov<br>
 - JSDoc3.
 
 **Запуск проекта**<br>
-Запустите сервер базы данных MongoDB:<br>
-- если у вас установлена MongoDB, используйте команду `mongod`.     
-- если у вас не установлена MongoDB, но установлены Docker и Docker-Compose, используйте команды:      
-  - Windows и MacOS: `docker-compose up mongodb-container`      
-  - Linux: `sudo docker-compose up mongodb-container`      
-- для запуска MongoDB из Docker в фоновом режиме используйте команды:     
-  - Windows и MacOS: `docker-compose up -d mongodb-container`    
-  - Linux: `sudo docker-compose up -d mongodb-container`    
-
-Запустите express-сервер:<br>
+1. Запустите сервер базы данных MongoDB:<br>
+2. Запустите express-сервер:<br>
 - `npm run start` — запускает express-сервер приложения    
   или     
 - `npm run dev` — запускает express-сервер приложения с hot-reload     
-
-Для остановки сервера MongoDB:<br>
-- используйте сочетание клавиш `Ctrl+C` - если запускали командой `mongod`     
-- используйте сочетание клавиш `Ctrl+C` (Windows, MacOS, Linux) - если запускали из Docker     
-- если запускали из Docker с флагом `-d` используйте команды:      
-  - Windows и MacOS: `docker-compose stop`     
-  - Linux: `sudo docker-compose stop`      
-
-Для остановки express-сервера приложения используйте сочетание клавиш `Ctrl+C`    
-  
+ 
 Команда `npm run jsdoc:build` - формирует документацию и собирает ее в папке documentation     
  
 **Описание версий проекта**<br>
