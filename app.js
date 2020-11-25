@@ -23,19 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 /*
-const corsOptions = {
-  origin: 'https://linuxoid.students.nomoreparties.xyz',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'x-access-token', 'X-Requested-With'],
-  credentials: true,
-};
 app.options('*', cors());
-app.use(cors()); */
-/*
+app.use(cors());  */
+
 app.use(function (req, res, next) {
-  //res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
+  res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
   res.header('Access-Control-Allow-Credentials', true);
@@ -51,14 +43,14 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', origin);
   }
   next();
-});*/
+});
 
 //**************************************************************************************** */
 //app.use(express.static(path.join(__dirname, 'public')));
 //******************************************************************************************** */
 
 //});
-app.use(cors());
+//app.use(cors());
 
 //==============================================================================
 /*const corsOptions = {
