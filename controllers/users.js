@@ -1,4 +1,12 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { SALT_ROUND, JWT_MAX_AGE } = require('../configs');
+const BadRequestError = require('../errors/bad-request-error');
+const NotFoundError = require('../errors/not-found-error');
+const UnauthorizedError = require('../errors/unauthorized-error');
+
+const { NODE_ENV = 'develop', JWT_SECRET } = process.env;
 
 /**
  * @module
@@ -26,10 +34,15 @@ const User = require('../models/user');
  * @instance
  * @public
  */
-const getUsers = (req, res) => {
+const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.status(200).send(users))
-    .catch(() => res.status(500).send({ message: 'Внутренняя ошибка сервера' }));
+    .then((users) => {
+      if (!users) {
+        throw new NotFoundError('Пользователи не найдены');
+      }
+      return res.status(200).send(users);
+    })
+    .catch(next);
 };
 
 /**
@@ -49,19 +62,20 @@ const getUsers = (req, res) => {
  * @instance
  * @public
  */
-const getUserById = (req, res) => {
+const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        return res.status(404).send({ message: 'Нет пользователя с таким id' });
+        throw new NotFoundError('Нет пользователя с таким id');
       }
       return res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return res.status(400).send({ message: 'Переданы некорректные данные' });
+        const error = new BadRequestError('Переданы некорректные данные');
+        next(error);
       }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+      next(err);
     });
 };
 
@@ -69,7 +83,7 @@ const getUserById = (req, res) => {
  * @description Контроллер<br>
  * Создает нового пользователя, в ответ отправляет данные созданного пользователя<br>
  * Принимает параметры из тела запроса: { name, about, avatar }<br>
- * Обрабатываeт запрос POST /users
+ * Обрабатываeт запрос POST /signup
  * @param {Object} req - объект запроса
  * @param {Object} res - объект ответа
  * @property {String} req.body.name - имя нового пользователя из тела запроса
@@ -82,21 +96,26 @@ const getUserById = (req, res) => {
  * @property {String} newUserData.name - имя нового пользователя
  * @property {String} newUserData.about - информация о новом пользователе
  * @property {String} newUserData.avatar - ссылка на аватар нового пользователя
+ * @property {String} newUserDta.email - емэйл пользователя (логин)
+ * @property {String} newUserData.password - пароль
  * @returns {JSON}
  * @since v.1.1.0
  * @instance
  * @public
  */
-const createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
-    .then((user) => res.status(200).send(user))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Переданы некорректные данные' });
-      }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
-    });
+const createUser = (req, res, next) => {
+  const { name, about, avatar, email, password } = req.body;
+  bcrypt.hash(password, SALT_ROUND).then((hash) =>
+    User.create({ name, about, avatar, email, password: hash })
+      .then((user) => res.status(200).send({ _id: user._id, email: user.email }))
+      .catch((err) => {
+        if (err.name === 'ValidationError') {
+          const error = new BadRequestError('Переданы некорректные данные');
+          next(error);
+        }
+        next(err);
+      }),
+  );
 };
 
 /**
@@ -127,10 +146,9 @@ const createUser = (req, res) => {
  * @instance
  * @public
  */
-const editUserProfile = (req, res) => {
+const editUserProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(
-    // req.user._id - временное решение авторизции.
     req.user._id,
     { name, about },
     {
@@ -139,12 +157,18 @@ const editUserProfile = (req, res) => {
       upsert: true,
     },
   )
-    .then((user) => res.status(200).send(user))
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      return res.status(200).send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Переданы некорректные данные' });
+        const error = new BadRequestError('Переданы некорректные данные');
+        next(error);
       }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+      next(err);
     });
 };
 
@@ -175,10 +199,9 @@ const editUserProfile = (req, res) => {
  * @instance
  * @public
  */
-const editUserAvatar = (req, res) => {
+const editUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(
-    // req.user._id - временное решение авторизции.
     req.user._id,
     { avatar },
     {
@@ -187,12 +210,74 @@ const editUserAvatar = (req, res) => {
       upsert: true,
     },
   )
-    .then((user) => res.status(200).send(user))
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      return res.status(200).send(user);
+    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return res.status(400).send({ message: 'Переданы некорректные данные' });
+        const error = new BadRequestError('Переданы некорректные данные');
+        next(error);
       }
-      return res.status(500).send({ message: 'Внутренняя ошибка сервера' });
+      next(err);
+    });
+};
+
+/**
+ * @description Контроллер<br>
+ * Проверяет учетные данные пользователя. Если пользователь найден в базе - отправляет его токен.
+ *  Принимает емэйл (логин) и пароль, возвращает токен.<br>
+ * Обрабатывает запрос POST/signin
+ * @param {Object} req - объект запроса
+ * @property {String} req.email - емэйл (логин)
+ * @property {String} req.password - пароль
+ * @param {Object} res - объект ответа
+ * @property {String} res.token - токен
+ * @returns {Object} token
+ * @since v.3.0.0
+ */
+
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const secret = NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret';
+      const token = jwt.sign({ _id: user._id }, secret, { expiresIn: JWT_MAX_AGE });
+
+      return res.status(200).send({ token });
+    })
+    .catch((err) => {
+      const error = new UnauthorizedError(err.message);
+      next(error);
+    });
+};
+
+/**
+ * @description Контроллер<br>
+ * Получает и возвращает данные авторизованного пользователя.<br>
+ * Обрабатывает запрос GET /users/me
+ * @param {Object} req - объект запроса
+ * @property {String} req.user._id - id авторизованного пользователя
+ * @param {Object} res - объект ответа
+ * @returns {Object}
+ * @since v.3.0.0
+ */
+const getAuthorizedUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      if (!user) {
+        throw new NotFoundError('Пользователь не найден');
+      }
+      return res.status(200).send(user);
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        const error = new BadRequestError('Переданы некорректные данные');
+        next(error);
+      }
+      next(err);
     });
 };
 
@@ -202,4 +287,6 @@ module.exports = {
   createUser,
   editUserProfile,
   editUserAvatar,
+  login,
+  getAuthorizedUser,
 };
