@@ -24,29 +24,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 /*
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://linuxoid.students.nomoreparties.xyz',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204,
-  //allowedHeaders: ['Content-Type', 'origin', 'x-access-token', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'origin', 'x-access-token', 'X-Requested-With'],
   credentials: true,
 };
+app.options('*', cors());
+app.use(cors()); */
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  //res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
   res.header('Access-Control-Allow-Credentials', true);
-  const allowedCors = ['localhost:3000', 'http://localhost:3000'];
+  const allowedCors = [
+    'https://linuxoid.students.nomoreparties.xyz',
+    'linuxoid.students.nomoreparties.xyz',
+    'https://www.linuxoid.students.nomoreparties.xyz',
+    'www.linuxoid.students.nomoreparties.xyz',
+  ];
   const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
     // Проверяем, что значение origin есть среди разрешённых доменов
     res.header('Access-Control-Allow-Origin', origin);
   }
   next();
-});*/
-//app.options('*', cors());
-//app.use(cors());
+});
+
 //**************************************************************************************** */
 //app.use(express.static(path.join(__dirname, 'public')));
 //******************************************************************************************** */
@@ -55,7 +61,7 @@ app.use(function (req, res, next) {
 //app.use(cors());
 
 //==============================================================================
-const corsOptions = {
+/*const corsOptions = {
   origin: 'https://linuxoid.students.nomoreparties.xyz',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
@@ -64,7 +70,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
 //===============================================================================
 
 app.use(requestLogger);
