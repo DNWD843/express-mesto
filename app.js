@@ -55,7 +55,7 @@ app.use(function (req, res, next) {
 //==============================================================================
 const corsOptions = {
   origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: true,
   optionsSuccessStatus: 204,
   allowedHeaders: ['Content-Type', 'Origin', 'x-access-token', 'X-Requested-With'],
