@@ -23,8 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 
-app.options('*', cors());
-app.use(cors());
+//app.options('*', cors());
+/*app.use(cors());
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', origin);
   }
   next();
-});
+});*/
 
 //**************************************************************************************** */
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -53,16 +53,16 @@ app.use(function (req, res, next) {
 //app.use(cors());
 
 //==============================================================================
-/*const corsOptions = {
+const corsOptions = {
   origin: 'https://linuxoid.students.nomoreparties.xyz',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
+  preflightContinue: true,
   optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'x-access-token', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'Origin', 'x-access-token', 'X-Requested-With'],
   credentials: true,
 };
 
-app.use(cors(corsOptions)); */
+app.use(cors(corsOptions));
 //===============================================================================
 
 app.use(requestLogger);
