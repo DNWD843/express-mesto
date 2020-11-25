@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
 //app.use(cors());
 
 //==============================================================================
-const corsOptions = {
+/*const corsOptions = {
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: true,
@@ -62,7 +62,7 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));*/
 //===============================================================================
 
 app.use(requestLogger);
