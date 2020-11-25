@@ -52,19 +52,19 @@ app.use(function (req, res, next) {
 //******************************************************************************************** */
 
 //});
-app.use(cors());
+//app.use(cors());
 
 //==============================================================================
-/*const corsOptions = {
-  origin: 'http://localhost:3000',
-  methods: 'GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE',
+const corsOptions = {
+  origin: 'https://linuxoid.students.nomoreparties.xyz',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204,
   allowedHeaders: ['Content-Type', 'origin', 'x-access-token', 'X-Requested-With'],
   credentials: true,
 };
-*/
-//app.use(cors(corsOptions));
+
+app.use(cors(corsOptions));
 //===============================================================================
 
 app.use(requestLogger);
