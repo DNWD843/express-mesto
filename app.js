@@ -18,7 +18,7 @@ const { PORT = 4000 } = process.env;
  * @since v.1.0.0
  */
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
@@ -50,7 +50,6 @@ app.use(function (req, res, next) {
 //******************************************************************************************** */
 
 //});
-//app.use(cors());
 
 //==============================================================================
 /*const corsOptions = {
