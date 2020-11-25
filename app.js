@@ -54,7 +54,7 @@ app.use(function (req, res, next) {
 
 //==============================================================================
 const corsOptions = {
-  origin: 'https://linuxoid.students.nomoreparties.xyz',
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: true,
   optionsSuccessStatus: 204,
