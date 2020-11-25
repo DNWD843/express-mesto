@@ -22,9 +22,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
-/*
+
 app.options('*', cors());
-app.use(cors());  */
+app.use(cors());
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
