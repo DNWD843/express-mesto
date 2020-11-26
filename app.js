@@ -20,6 +20,15 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
+
+// краш-тест сервера
+//TODO: удалить после ревью!
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(rootRouter);
 app.use(errorLogger);
 app.use(errors());
