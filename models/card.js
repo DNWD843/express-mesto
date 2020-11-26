@@ -62,7 +62,6 @@ const cardSchema = new mongoose.Schema({
       _id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
-        default: [],
       },
     },
   ],
