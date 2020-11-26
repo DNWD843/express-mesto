@@ -1,7 +1,7 @@
 # Проект Mesto фронтенд + бэкенд
 
 License: Yandex.Praktikum<br>
-Version: 3.0.0<br>
+Version: 1.3.0<br>
 Author: Dmitry Neklyudov<br>
 
 **Описание**<br>
@@ -24,9 +24,15 @@ Author: Dmitry Neklyudov<br>
   или
 - `npm run dev` — запускает express-сервер приложения с hot-reload
 
-Команда `npm run jsdoc:build` - формирует документацию и собирает ее в папке documentation
+Для сборки документации в папке `documentation` наберите одну из команд:  
+ `npm run jsdoc:build` - если JSDoc3 установлен  
+ `npm run jsdoc:npx` - если JSDoc3 не установлен
 
 **Описание версий проекта**<br>
+**_Версия 1.3.0_**  
+Добавлены контроллеры создания пользователя, авторизации, получения данных авторизованного
+пользователя.
+
 **_Версия 1.2.0_**  
 Реализована возможность запуска БД MongoDB из контейнера Docker.
 
