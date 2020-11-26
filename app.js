@@ -10,7 +10,7 @@ const handleErrors = require('./middlewares/handleErrors');
 const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 4000 } = process.env;
+const { PORT = 3000 } = process.env;
 
 /**
  * @module app
@@ -18,14 +18,14 @@ const { PORT = 4000 } = process.env;
  * @since v.1.0.0
  */
 const app = express();
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cookieParser());
 
 //app.options('*', cors());
-/*app.use(cors());
 
+/*
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'https://linuxoid.students.nomoreparties.xyz');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -52,7 +52,7 @@ app.use(function (req, res, next) {
 //});
 
 //==============================================================================
-const corsOptions = {
+/*const corsOptions = {
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: true,
@@ -61,9 +61,9 @@ const corsOptions = {
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));*/
 //===============================================================================
-//app.use(cors());
+app.use(cors());
 app.use(requestLogger);
 app.use(rootRouter);
 
