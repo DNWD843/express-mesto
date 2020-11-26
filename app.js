@@ -52,7 +52,7 @@ app.use(function (req, res, next) {
 //});
 
 //==============================================================================
-/*const corsOptions = {
+const corsOptions = {
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   preflightContinue: true,
@@ -61,9 +61,9 @@ app.use(function (req, res, next) {
   credentials: true,
 };
 
-app.use(cors(corsOptions));*/
+app.use(cors(corsOptions));
 //===============================================================================
-app.use(cors());
+//app.use(cors());
 app.use(requestLogger);
 app.use(rootRouter);
 
