@@ -18,3 +18,5 @@ node_modules
 #игнорим всю папку, кроме файла .gitkeep
 docker/*
 !docker/.gitkeep
+
+.env
