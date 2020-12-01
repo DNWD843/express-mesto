@@ -57,7 +57,7 @@ const loginReqValidator = celebrate({
   body: Joi.object()
     .keys({
       email: Joi.string().email().required(),
-      password: Joi.string().alphanum().required().min(8),
+      password: Joi.string().alphanum().required().min(3),
     })
     .unknown(true),
 });
