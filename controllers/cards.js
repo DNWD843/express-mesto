@@ -30,6 +30,7 @@ const ForbiddenError = require('../errors/forbidden-error');
  */
 const getCards = (req, res, next) => {
   Card.find({})
+    .populate(['owner', 'likes'])
     .then((cards) => {
       if (!cards) {
         throw new NotFoundError('Карточки не найдены');
@@ -60,8 +61,11 @@ const getCards = (req, res, next) => {
  */
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  Card.create({ name, link, owner: { _id: req.user._id } })
-    .then((card) => res.status(200).send(card))
+  Card.create({ name, link, owner: req.user._id })
+    .then((card) => Card.findById(card._id)
+      .populate(['owner', 'likes'])
+      .then((newCard) => res.status(200).send(newCard))
+      .catch(next))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         const error = new BadRequestError('Переданы некорректные данные');
@@ -87,6 +91,7 @@ const createCard = (req, res, next) => {
  */
 const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
+    .populate('owner')
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');
@@ -98,8 +103,6 @@ const deleteCard = (req, res, next) => {
       return res.status(200).send({ message: 'Карточка успешно удалена' });
     })
     .catch((err) => {
-      // eslint-disable-next-line
-      console.log(err);
       if (err.name === 'CastError') {
         const error = new BadRequestError('Невалидный id');
         return next(error);
@@ -137,9 +140,10 @@ const deleteCard = (req, res, next) => {
 const likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    { $addToSet: { likes: { _id: req.user._id } } },
+    { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточкa не найдена');
@@ -183,9 +187,10 @@ const likeCard = (req, res, next) => {
 const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
-    { $pull: { likes: { _id: req.user._id } } },
+    { $pull: { likes: req.user._id } },
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Карточка не найдена');

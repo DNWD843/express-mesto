@@ -16,26 +16,22 @@ const { PORT = 3000 } = process.env;
  * @since v.1.0.0
  */
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: 'https://linuxoid.students.nomoreparties.xyz',
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
-
-// краш-тест сервера
-// TODO: удалить после ревью!
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
-
 app.use(rootRouter);
 app.use(errorLogger);
 app.use(errors());
 app.use(handleErrors);
 
+const toDataBase = 'mongodb://localhost:27017/mestodb';
 mongoose
-  .connect('mongodb://localhost:27017/mestodb', {
+  .connect(toDataBase, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
